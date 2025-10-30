@@ -1,0 +1,99 @@
+Beet Sprout — детальніше заглибся в практику. 
+1. В Google docs створи 5 тест-кейсів для функціонального тестування сайту https://automoto.ua/uk/ (5 найбільш пріоритетних тестів). Посилання на документ додай до ЛМС.
+
+https://docs.google.com/spreadsheets/d/12mmi63IFBvdEfERGeeITeSmsWJr0nYxbnoulH8RAof0/edit?usp=sharing 
+
+2. За допомогою https://reqbin.com/ протестуй наступні методи API Reqres:
+LIST USERS
+SINGLE USER
+CREATE
+UPDATE (PUT)
+UPDATE (PATCH)
+DELETE
+REGISTER - SUCCESSFUL
+LOGIN - SUCCESSFUL
+Створи документ, в якому у довільному форматі, але зі скриншотами, опиши знайдені баги. Документ додай до LMS.
+LIST USERS positive test GET method
+перевірити завантаження 1ої сторінки
+
+LIST USERS negative test GET method
+перевірити можливість змінити структуру запиту ?(початок рядка запиту) на /(шлях)
+
+
+SINGLE USER positive test GET method
+перевірити завантаження даних 5ого користувача
+
+SINGLE USER negative test GET method
+перевірити завантаження даних 13ого користувача
+
+
+CREATE positive test POST method
+створити поле  "name": "api", "job": "postman"
+
+CREATE negative test POST method
+перевірити створення полів  "name": "api", "job": ввести пробіли
+
+UPDATE (PUT) positive test
+перевірити оновлення даних - "name": "api", 
+  "job": "post office manager"
+
+UPDATE (PUT) negaitive test
+перевірити оновлення даних з порожнім полем name - "name":     , 
+  "job": "post office manager"
+
+
+UPDATE (PATCH) positive test
+перевірити оновлення даних - "name": "apik", "job": "postman"
+
+UPDATE (PATCH) negaitive test
+перевірити оновлення даних з порожнім полем - "name": "apik", "job": 
+
+DELETE
+перевірити можливість видалення 5ого користувача
+
+
+REGISTER - SUCCESSFUL  positive test POST method
+перевірити можливість реєстрації користувача"email": "eve.holt@reqres.in",
+    "password": "good"
+
+REGISTER - SUCCESSFUL negative test POST method
+перевірити можливість реєстрації користувача з невалідною формою email  - "email": "eve.holt@reqresin",
+    "password": "good"
+
+LOGIN - SUCCESSFUL positive test POST method
+перевірити можливість залогінитись з даними існуючого користувача "email": "eve.holt@reqres.in", "password": "good"
+
+
+LOGIN - SUCCESSFUL negative test POST method
+перевірити можливість залогінитись з даними неіснуючого користувача "email": "postman@reqres.in", "password": "good"
+
+
+Баги, знайдені при тестуванні методів API в інструменті https://reqbin.com/
+
+LIST USERS /GET method. 
+Некоректний код  валідації запиту при відкритті неіснуючої сторінки.
+AR: Відкривається 13 сторінка, при умові, що їх 12.
+ER: такий запит мав би звалідувати 404 Not found
+
+
+LIST USERS /GET method. 
+Некоректна валідація відповіді на запит при введенні невалідного значення.
+AR: З’являється інформація з першої сторінки, при введені в параметр пошуку невалідного значення & (qwerty на прикладі наступно скріншота). ER: такий запит мав би звалідувати відповідь “введіть коректні дані”.
+
+
+CREATE /POST method
+Некоректна валідація створення користувача при введенні невалідних даних.
+AR: Система дозволяє створити користувача з іменем введеним пробілами. ER система мала б видати помилку, що потрібно ввести коректні дані.
+
+
+UPDATE /PUT method
+Некоректна валідація оновлення даних користувача при введенні невалідних даних.
+AR: Система дозволяє коригувати дані, замінивши їх на невалідне значення, ввівши в поле “ім’я” пробіли. (вписавши в поля замість букв - цифри, як на другому скріншоті)
+ER: дані некоректні
+
+LOGIN - SUCCESSFUL /POST method
+Некоректна валідація авторизації користувача при введенні невалідних даних
+AR:система дозволяє залогінитись користувачу ввівши в поле password невалідні значення, пробіли.
+ER: дані некоректні
+
+
